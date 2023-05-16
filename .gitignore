@@ -1,0 +1,7 @@
+node_modules/
+/test-results/
+/playwright-report/
+/playwright/.cache/
+storage_states/
+.env
+e2e-report.json
