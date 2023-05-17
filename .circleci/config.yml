@@ -2,7 +2,6 @@ version: 2.1
 jobs:
   playwright:
     name: 'Playwright Tests'
-    runs-on: ubuntu-latest
     executor: pw-jammy-development
     parallelism: 4
     steps:
