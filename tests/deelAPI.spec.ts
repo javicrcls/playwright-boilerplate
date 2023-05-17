@@ -79,30 +79,64 @@ test.describe('Deel API test suite: ', () => {
     expect(response.status()).toBe(200);
   });
 
-  test.describe('Update user flow: ', () => {
-    const username = randFullName();
+})
 
-     test('Data Manipulation: Update a user', async () => {
-      await test.step('Update user', async () => {
-        const users = await apiContext.get('https://gorest.co.in/public/v2/users');
-        const body = await users.json();
-        const userId = body[0].id;
-        const response = await apiContext.patch(`https://gorest.co.in/public/v2/users/${userId}`, {
-          data: {
-            'name': username,
-          },
-        });
-        expect(response.status()).toBe(200);
+test.describe('Update user flow: ', () => {
+  const username = randFullName();
+
+   test('Data Manipulation: Update a user', async () => {
+    await test.step('Update user', async () => {
+      const users = await apiContext.get('https://gorest.co.in/public/v2/users');
+      const body = await users.json();
+      const userId = body[0].id;
+      const response = await apiContext.patch(`https://gorest.co.in/public/v2/users/${userId}`, {
+        data: {
+          'name': username,
+        },
       });
+      expect(response.status()).toBe(200);
+    });
 
-      await test.step('Check user exists', async () => {
-        const users = await apiContext.get('/public/v2/users');
-        const body = await users.json();
-        expect(users.status()).toBe(200);
-        console.log(body[0]);
-        expect(body[0].name).toBe(username);
+    await test.step('Check user exists', async () => {
+      const users = await apiContext.get('/public/v2/users');
+      const body = await users.json();
+      expect(users.status()).toBe(200);
+      console.log(body[0]);
+      expect(body[0].name).toBe(username);
+    });
+
+  });
+
+})
+
+test.describe('Use body response from previous call ', () => {
+  const username = randFullName();
+  let userlist = new Array;
+    test('Data persists', async () => {
+    await test.step('Create a user', async () => {
+      const name = randFullName();
+      const email = randEmail();
+      const response = await apiContext.post('/public/v2/users', {
+        data: {
+          'name': name,
+          'gender': 'male',
+          'email': email,
+          'status': 'active'
+        },
       });
+      expect(response.status()).toBe(201);
+      const data = await response.json()
+      userlist.push(data);
+      console.log(` User created: ${name} ${email}  `);
+    });
 
+    await test.step('Check user exists', async () => {
+      for(let index=0; index<userlist.length;index++){
+        const response = await apiContext.get(`/public/v2/users/${userlist[index].id}`)
+        expect(response.ok()).toBeTruthy();
+        const data = await response.json();
+        expect(data.id).toEqual(userlist[index].id)
+      }
     });
 
   });
