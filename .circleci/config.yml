@@ -3,7 +3,6 @@ version: 2.1
 jobs:
   run-test:
     executor: pw-jammy-development
-    parallelism: 4
     steps:
       - checkout
       - run: pwd
@@ -11,12 +10,13 @@ jobs:
       - run: npm i -D @playwright/test
       - run: npx playwright install --with-deps chromium
       - run:
+          parallelism: 4
           name: Run test
           command: npx playwright test
       - store_artifacts:
           path: /root/project/test-results
       - store_test_results:
-          path: /root/project/
+          path: /root/project/e2e-report.xml
 
 workflows:
   run-test-workflow:
