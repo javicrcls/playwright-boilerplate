@@ -5,8 +5,6 @@ jobs:
     executor: pw-jammy-development
     steps:
       - checkout
-      - run: pwd
-      - run: ls
       - run: npm i -D @playwright/test
       - run: npx playwright install --with-deps chromium
       - run:
