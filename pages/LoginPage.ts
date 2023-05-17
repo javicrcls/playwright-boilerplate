@@ -6,9 +6,7 @@ export class LoginPage {
   constructor(page: Page) {
         this.page = page;
         this.elements = {
-            userInput: this.page.locator('input[id=login_field]'),
-            passwordInput: this.page.locator('input[id=password]'),
-            loginButton: this.page.locator('input[type=submit]'),
+            signUpButton: this.page.locator('button[data-qa="sign-up"]')
         };
   }
 
@@ -16,9 +14,4 @@ export class LoginPage {
     await this.page.goto(url, { waitUntil: 'domcontentloaded' });
   }
 
-  async login(username: string, password: string){
-    await this.elements.userInput.fill(username);
-    await this.elements.passwordInput.fill(password);
-    await this.elements.loginButton.click();
-  }
 }

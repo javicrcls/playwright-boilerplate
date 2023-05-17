@@ -10,7 +10,7 @@ const config: PlaywrightTestConfig = {
   },
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
-  retries: process.env.CI ? 2 : 1,
+  retries: process.env.CI ? 2 : 0,
   workers: process.env.CI ? 5 : undefined,
   reporter: process.env.CI ? [["junit", {
     outputFile: "e2e-report.xml"
@@ -24,7 +24,7 @@ const config: PlaywrightTestConfig = {
     headless: process.env.CI ? true : false,
     viewport: { width: 1280, height: 1024 },
     actionTimeout: 30000,
-    baseURL: process.env.CI ? process.env.BASE_URL : 'https://github.com/',
+    baseURL: process.env.CI ? process.env.BASE_URL : 'https://www-dev-7lzj8qjmkj.giger.training',
     trace: process.env.CI ? "off" : "retain-on-failure",
     screenshot: process.env.CI ? "only-on-failure" : "only-on-failure",
 /*     extraHTTPHeaders: {
