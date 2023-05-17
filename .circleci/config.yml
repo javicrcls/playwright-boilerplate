@@ -8,7 +8,7 @@ jobs:
       - run: pwd
       - run: ls
       - run: npm i -D @playwright/test
-      - run: npx playwright install --with-deps chromium
+      - run: npx playwright install --with-deps chrome
       - run:
           name: Run test
           command: npx playwright test
