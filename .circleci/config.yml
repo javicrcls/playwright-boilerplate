@@ -12,8 +12,10 @@ jobs:
       - run:
           name: Run test
           command: npx playwright test
+      - store_artifacts:
+          path: /root/project/test-results
       - store_test_results:
-          path: test-results/
+          path: /root/project/test-results
 
 # Invoke jobs via workflows
 workflows:
