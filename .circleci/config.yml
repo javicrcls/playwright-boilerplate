@@ -1,9 +1,8 @@
 version: 2.1
 jobs:
   run-test:
+    executor: pw-jammy-development
     parallelism: 4
-    docker:
-      - image: mcr.microsoft.com/playwright:v1.27.1-focal
     steps:
       - checkout
       - run: npm i -D @playwright/test
@@ -19,3 +18,8 @@ workflows:
   run-test-workflow:
     jobs:
       - run-test
+
+executors:
+   pw-jammy-development:
+     docker:
+       - image: mcr.microsoft.com/playwright:v1.33.0-jammy
