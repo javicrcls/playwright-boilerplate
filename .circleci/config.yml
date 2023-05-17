@@ -15,7 +15,7 @@ jobs:
       - store_artifacts:
           path: /root/project/test-results
       - store_test_results:
-          path: /root/project/test-results
+          path: /root/project/e2e-report.json
 
 # Invoke jobs via workflows
 workflows:
